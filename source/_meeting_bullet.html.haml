@@ -1,0 +1,35 @@
+- require 'html-schema'
+- htmlschema = HTMLSchema.new
+- if events.nil? || events.length == 0
+  %li.bullet
+    .bullet-icon.bullet-icon-1
+      %img(src='http://photos2.meetupstatic.com/photos/event/4/2/6/highres_147421062.jpeg')
+    .bullet-content
+      %h2.events__empty  No upcoming events!
+- else
+  - events.each do |event|
+    %li.bullet
+      .bullet-icon.bullet-icon-1
+        %img(src='http://photos2.meetupstatic.com/photos/event/4/2/6/highres_147421062.jpeg')
+      .bullet-content
+        %event{htmlschema.event.to_hash}
+          %h2.description.hero__title{htmlschema.event.name.to_hash}=event['name']
+          %p.description{htmlschema.event.start_date.to_hash}=Time.at(event['time'].to_s[0..-4].to_i).strftime('%A, %d %b %Y %l:%M %p')
+          - if event.try(:venue).present?
+            %span.description{htmlschema.event.location.to_hash}
+              %h1.description{htmlschema.address.street.to_hash}
+                ="#{event['venue']['name']}\n"
+              %span
+                %span.description{htmlschema.address.street.to_hash}
+                  ="#{event['venue']['address_1']}"
+                %span.description{htmlschema.address.city.to_hash}
+                  ="#{event['venue']['city']}, "
+                %span.description{htmlschema.address.state.to_hash}
+                  ="#{event['venue']['state']} "
+                %span.description{htmlschema.address.country.to_hash}
+                  =event['venue']['country'].upcase
+        %br
+        - if event['yes_rsvp_count'] >= event['rsvp_limit']
+          %a.hero__link{htmlschema.media.url.to_hash, href: "#{event['event_url']}"}="Join waitlist!"
+        -else
+          %a.hero__link{htmlschema.media.url.to_hash, href: "#{event['event_url']}"}="Join #{event['yes_rsvp_count']} rubyists!"

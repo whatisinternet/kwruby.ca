@@ -6,6 +6,14 @@
 # compass_config do |config|
 #   config.output_style = :compact
 # end
+require 'dotenv'
+require 'meetup_client'
+Dotenv.load
+
+MeetupClient.configure do |config|
+  config.api_key = ENV['MEETUP_API_KEY']
+end
+require_relative './lib/meetup_feed'
 
 ###
 # Page options, layouts, aliases and proxies
@@ -82,6 +90,10 @@ end
 
 with_layout :wiki do
   page '/wiki/*'
+end
+
+with_layout :layout do
+  page '/meetings/*'
 end
 
 set :markdown_engine, :redcarpet

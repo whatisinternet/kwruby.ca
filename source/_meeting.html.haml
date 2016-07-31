@@ -1,0 +1,35 @@
+- require 'html-schema'
+- htmlschema = HTMLSchema.new
+- if events.nil? || events.length == 0
+  %h5 Nothing yet!
+- else
+  - events.each do |event|
+    - css_class = Time.at(event['time'].to_s[0..-4].to_i) > Time.now ? "" : "color: #ccc !important"
+    %ul.bullets
+      %li.bullet
+        %event{htmlschema.event.to_hash}
+          %h1.description.hero__title{htmlschema.event.name.to_hash, style: css_class}=event['name']
+          %p.description{htmlschema.event.start_date.to_hash}=Time.at(event['time'].to_s[0..-4].to_i).strftime('%A, %d %b %Y %l:%M %p')
+          - if event.try(:venue).present?
+            %span.description{htmlschema.event.location.to_hash}
+              %h1.description{htmlschema.address.street.to_hash}
+                ="#{event['venue']['name']}\n"
+              %span
+                %span.description{htmlschema.address.street.to_hash}
+                  ="#{event['venue']['address_1']}"
+                %span.description{htmlschema.address.city.to_hash}
+                  ="#{event['venue']['city']}, "
+                %span.description{htmlschema.address.state.to_hash}
+                  ="#{event['venue']['state']} "
+                %span.description{htmlschema.address.country.to_hash}
+                  =event['venue']['country'].upcase
+          %p.description{htmlschema.event.description.to_hash}=event['description']
+        %br
+        - if Time.at(event['time'].to_s[0..-4].to_i) > Time.now
+          - if event['yes_rsvp_count'] >= event['rsvp_limit']
+            %a.hero__link{htmlschema.media.url.to_hash, href: "#{event['event_url']}"}="Join waitlist!"
+          -else
+            %a.hero__link{htmlschema.media.url.to_hash, href: "#{event['event_url']}"}="Join #{event['yes_rsvp_count']} rubyists!"
+        - else
+          %a.hero__link{htmlschema.media.url.to_hash, href: "#{event['event_url']}"} Join discussion
+        %hr

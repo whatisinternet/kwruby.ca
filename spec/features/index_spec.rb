@@ -26,14 +26,6 @@ describe 'index', type: :feature do
       expect(find_button('Join us!')).not_to be_nil
     end
 
-    it 'has a link to meetup' do
-      page.should have_selector 'a'
-      expect(page.find('a.sign-up')).not_to be_nil
-      expect(page.find('a.sign-up')[:href]).to eq(
-        'http://www.meetup.com/kw-ruby-on-rails/'
-      )
-    end
-
     it 'has a link to the wiki' do
       page.should have_selector 'a'
       expect(page.find('a#wiki-link')).not_to be_nil
@@ -50,6 +42,7 @@ describe 'index', type: :feature do
     it { expect(page.find('a.logo img')[:src]).to eq('/logo/current.png') }
     it { expect(page.find('#nav-home a')[:href]).to eq('/') }
     it { expect(page.find('#nav-wiki a')[:href]).to eq('/wiki') }
+    it { expect(page.find('#nav-meetings a')[:href]).to eq('/meetings') }
     it { expect(page.find('#nav-github a')[:href]).to match(/github/) }
     it { expect(page.find('#nav-github a')[:href]).to match(/kwruby/) }
     it { expect(page.find('#nav-twitter a')[:href]).to match(/twitter/) }

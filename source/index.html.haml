@@ -1,6 +1,7 @@
 ---
 title: KW Ruby Developers
 ---
+- require_relative '../lib/meetup_feed'
 
 %section.hero
   .side-image
@@ -20,13 +21,7 @@ title: KW Ruby Developers
 
 %section.container
   %ul.bullets
-    %li.bullet
-      .bullet-icon.bullet-icon-1
-        %img(src='http://photos2.meetupstatic.com/photos/event/4/2/6/highres_147421062.jpeg')
-      .bullet-content
-        %h2 Join us on MeetUp
-        %p
-          =link_to 'KW Ruby Meetup', 'http://www.meetup.com/kw-ruby-on-rails/', :class => 'sign-up'
+    = partial(:meeting_bullet, locals: {events: MeetupFeed.upcoming_meetings})
 
     %li.bullet
       .bullet-icon.bullet-icon-3

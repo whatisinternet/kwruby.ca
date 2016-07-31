@@ -1,14 +1,16 @@
 @import 'bourbon';
 @import 'neat';
 @import 'base/base';
-@import '_hero';
+@import 'hero';
 
-body{
-  position: relative;
+$background-color: #fdfdfd;
+
+body {
+  background-color: $background-color;
   margin: 0;
-  padding-bottom: 6rem;
   min-height: 100%;
-  background-color: #fdfdfd;
+  padding-bottom: 6rem;
+  position: relative;
 }
 
 .section {
@@ -16,15 +18,23 @@ body{
   padding-bottom: 5%;
 
 }
+
 .content {
   display: flex;
-  min-height: 90vh;
   flex-direction: column;
+  min-height: 90vh;
 }
 
 .container {
   @include outer-container(80%);
-
-  padding: 2em;
   flex: 1;
+  padding: 2em;
+}
+
+.event__join-link{
+  background-color: #a02828;
+  color: $background-color;
+  border-radius: 3px;
+  padding: .75em 1.5em;
+  margin-top: 2em;
 }
