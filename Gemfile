@@ -16,11 +16,19 @@ gem 'middleman-favicon-maker', '~> 3.7'
 gem 'bitters'
 gem 'bourbon'
 gem 'neat'
+gem 'meetup_client'
+gem 'html-schema'
+gem 'dotenv'
 
 group :development do
   gem 'rake', '~> 10.1.0'
   gem 'rspec', '~> 2.14.1'
   gem 'capybara', '~> 2.1.0'
+  gem 'vcr', '~> 3.0'
+  gem 'webmock', '~> 1.24'
   gem 'rubocop', require: false
   gem 'scss_lint', require: false
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'pry'
 end
