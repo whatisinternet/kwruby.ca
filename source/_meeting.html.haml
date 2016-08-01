@@ -5,24 +5,28 @@
 - else
   - events.each do |event|
     - css_class = Time.at(event['time'].to_s[0..-4].to_i) > Time.now ? "" : "color: #ccc !important"
-    %ul.bullets
-      %li.bullet
+    - formatted_time = Time.at(event['time'].to_s[0..-4].to_i).strftime('%A, %d %b %Y %l:%M %p')
+    %ul
+      %li
         %event{htmlschema.event.to_hash}
-          %h1.description.hero__title{htmlschema.event.name.to_hash, style: css_class}=event['name']
-          %p.description{htmlschema.event.start_date.to_hash}=Time.at(event['time'].to_s[0..-4].to_i).strftime('%A, %d %b %Y %l:%M %p')
-          - if event.try(:venue).present?
-            %span.description{htmlschema.event.location.to_hash}
-              %h1.description{htmlschema.address.street.to_hash}
-                ="#{event['venue']['name']}\n"
-              %span
-                %span.description{htmlschema.address.street.to_hash}
-                  ="#{event['venue']['address_1']}"
-                %span.description{htmlschema.address.city.to_hash}
-                  ="#{event['venue']['city']}, "
-                %span.description{htmlschema.address.state.to_hash}
-                  ="#{event['venue']['state']} "
-                %span.description{htmlschema.address.country.to_hash}
-                  =event['venue']['country'].upcase
+          .event__title-wrapper
+            %h1.description.hero__title.event__title{htmlschema.event.name.to_hash, style: css_class}=event['name']
+          - if event['venue'].present?
+            .event__date-location-container
+              %h1.description.event__date{htmlschema.event.start_date.to_hash}= formatted_time
+              .event__location
+                %span
+                  %h1.description{htmlschema.event.location.to_hash}
+                    %h1.description{htmlschema.address.street.to_hash}
+                      ="#{event['venue']['name']}"
+                    %span.description{htmlschema.address.street.to_hash}
+                      ="#{event['venue']['address_1']}"
+                    %span.description{htmlschema.address.city.to_hash}
+                      ="#{event['venue']['city']}, "
+                    %span.description{htmlschema.address.state.to_hash}
+                      ="#{event['venue']['state']} "
+                    %span.description{htmlschema.address.country.to_hash}
+                      =event['venue']['country'].upcase
           %p.description{htmlschema.event.description.to_hash}=event['description']
         %br
         - if Time.at(event['time'].to_s[0..-4].to_i) > Time.now

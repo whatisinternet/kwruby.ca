@@ -1,0 +1,28 @@
+@import 'bourbon';
+@import 'neat';
+@import 'base/base';
+
+$border-color: #333;
+$title-color: rgb(160, 40, 40);
+$title-font-color: #fefefe;
+
+.event {
+  &__date-location-container {
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__title {
+    background-color: $title-color;
+    color: $title-font-color;
+    padding: 2em;
+  }
+
+  &__date {
+    padding-bottom: 1em;
+    padding-top: 1em;
+  }
+
+  &__location {
+    padding-bottom: 1em;
+  }
+}
