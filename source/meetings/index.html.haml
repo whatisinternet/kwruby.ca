@@ -3,7 +3,7 @@ title: KWRuby Meetings
 ---
 
 %section.container
-  %h1.hero__title Current and upcoming
+  %h1.hero__title#upcoming Current and upcoming
   = partial(:meeting, locals: {events: MeetupFeed.upcoming_meetings})
-  %h1.hero__title Past Meetups
+  %h1.hero__title#past Past Meetups
   = partial(:meeting, locals: {events: MeetupFeed.past_meetings})
