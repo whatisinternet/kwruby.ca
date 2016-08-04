@@ -30,5 +30,65 @@ describe '/meetings', type: :feature do
         page.should have_content(/^Past Meetups/)
       end
     end
+
+  end
+
+  context 'microformats data' do
+    it 'has name micorformat data' do
+      expect(page.find('#event-title', match: :first)['itemprop']).to eq('name')
+    end
+
+    it 'has date micorformat data' do
+      expect(
+        page.find('.event__date', match: :first)['itemprop']
+      ).to eq('startDate')
+    end
+
+    it 'has description micorformat data' do
+      expect(
+        page.find('.description', match: :first)['itemprop']
+      ).to eq('description')
+    end
+
+    it 'has description micorformat data' do
+      expect(
+        page.find('.hero__link', match: :first)['itemprop']
+      ).to eq('contentURL')
+    end
+
+    describe 'address' do
+      it 'has address micorformat data' do
+        expect(
+          page.find('.address', match: :first)['itemprop']
+        ).to eq('location')
+      end
+
+      it 'has street address micorformat data' do
+        expect(
+          page.find('.address__name', match: :first)['itemprop']
+        ).to eq('streetAddress')
+        expect(
+          page.find('.address__street', match: :first)['itemprop']
+        ).to eq('streetAddress')
+      end
+
+      it 'has city micorformat data' do
+        expect(
+          page.find('.address__city', match: :first)['itemprop']
+        ).to eq('addressLocality')
+      end
+
+      it 'has state micorformat data' do
+        expect(
+          page.find('.address__state', match: :first)['itemprop']
+        ).to eq('addressRegion')
+      end
+
+      it 'has country micorformat data' do
+        expect(
+          page.find('.address__country', match: :first)['itemprop']
+        ).to eq('addressCountry')
+      end
+    end
   end
 end

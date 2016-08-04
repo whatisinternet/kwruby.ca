@@ -10,22 +10,22 @@
       %li
         %event{htmlschema.event.to_hash}
           .event__title-wrapper
-            %h1.description.hero__title.event__title{htmlschema.event.name.to_hash, style: css_class}=event['name']
+            %h1.hero__title.event__title#event-title{htmlschema.event.name.to_hash, style: css_class}=event['name']
           - if event['venue'].present?
             .event__date-location-container
-              %h1.description.event__date{htmlschema.event.start_date.to_hash}= formatted_time
+              %h1.event__date{htmlschema.event.start_date.to_hash}= formatted_time
               .event__location
                 %span
-                  %h1.description{htmlschema.event.location.to_hash}
-                    %h1.description{htmlschema.address.street.to_hash}
+                  %h1.address{htmlschema.event.location.to_hash}
+                    %h1.address__name{htmlschema.address.street.to_hash}
                       ="#{event['venue']['name']}"
-                    %span.description{htmlschema.address.street.to_hash}
+                    %span.address__street{htmlschema.address.street.to_hash}
                       ="#{event['venue']['address_1']}"
-                    %span.description{htmlschema.address.city.to_hash}
+                    %span.address__city{htmlschema.address.city.to_hash}
                       ="#{event['venue']['city']}, "
-                    %span.description{htmlschema.address.state.to_hash}
+                    %span.address__state{htmlschema.address.state.to_hash}
                       ="#{event['venue']['state']} "
-                    %span.description{htmlschema.address.country.to_hash}
+                    %span.address__country{htmlschema.address.country.to_hash}
                       =event['venue']['country'].upcase
           %p.description{htmlschema.event.description.to_hash}=event['description']
         %br
