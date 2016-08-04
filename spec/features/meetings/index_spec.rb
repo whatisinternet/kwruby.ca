@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/meetings', type: :feature do
+describe '/meetings', type: :feature, vcr: true do
   before do
     visit '/meetings'
   end

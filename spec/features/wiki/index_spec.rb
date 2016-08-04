@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/wiki', type: :feature do
+describe '/wiki', type: :feature, vcr: true  do
   before do
     visit '/wiki'
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/wiki/companies_using_ruby_in_waterloo', type: :feature do
+describe '/wiki/companies_using_ruby_in_waterloo', type: :feature, vcr: true do
   before do
     visit '/wiki/companies_using_ruby_in_waterloo'
   end

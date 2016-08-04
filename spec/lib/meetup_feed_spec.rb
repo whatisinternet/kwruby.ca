@@ -2,83 +2,63 @@ require 'spec_helper'
 require 'lib/meetup_feed'
 require 'uri'
 
-describe 'lib/meetup_feed' do
+describe 'lib/meetup_feed', vcr: true do
   context 'uses MeetupAPI to get a colleciton of events' do
     it 'should return an array of all events' do
-      VCR.use_cassette 'all_meetings' do
-        expect(MeetupFeed.all_meetings).to be_a(Array)
-      end
+      expect(MeetupFeed.all_meetings).to be_a(Array)
     end
 
     it 'should return an array of current and upcoming events' do
-      VCR.use_cassette 'upcoming_meetings' do
-        expect(MeetupFeed.upcoming_meetings).to be_a(Array)
-      end
+      expect(MeetupFeed.upcoming_meetings).to be_a(Array)
     end
 
     it 'should return an array of past events' do
-      VCR.use_cassette 'past_meetings' do
-        expect(MeetupFeed.past_meetings).to be_a(Array)
-      end
+      expect(MeetupFeed.past_meetings).to be_a(Array)
     end
 
     describe 'meetup values' do
       context 'has content' do
         describe 'time' do
           it 'has time integer that is way too long' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(MeetupFeed.past_meetings[0]['time']).to be_a(Integer)
-            end
+            expect(MeetupFeed.past_meetings[0]['time']).to be_a(Integer)
           end
 
           it 'time is a valid Time when truncated correctly' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(
-                Time.at(MeetupFeed.past_meetings[0]['time'].to_s[0..-4].to_i)
-              ).to be_a(Time)
-            end
+            expect(
+              Time.at(MeetupFeed.past_meetings[0]['time'].to_s[0..-4].to_i)
+            ).to be_a(Time)
           end
 
           it 'truncated correctly is in the past' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(
-                Time.at(
-                  MeetupFeed.past_meetings[0]['time'].to_s[0..-4].to_i
-                ).to_i
-              ).to be < Time.now.to_i
-            end
+            expect(
+              Time.at(
+                MeetupFeed.past_meetings[0]['time'].to_s[0..-4].to_i
+              ).to_i
+            ).to be < Time.now.to_i
           end
         end
 
         describe 'name' do
           it 'has a name string' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(MeetupFeed.past_meetings[0]['name']).to be_a(String)
-            end
+            expect(MeetupFeed.past_meetings[0]['name']).to be_a(String)
           end
         end
 
         describe 'description' do
           it 'has a description' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(MeetupFeed.past_meetings[0]['description']).to be_a(String)
-            end
+            expect(MeetupFeed.past_meetings[0]['description']).to be_a(String)
           end
         end
 
         describe 'url' do
           it 'has a url' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(MeetupFeed.past_meetings[0]['event_url']).to be_a(String)
-            end
+            expect(MeetupFeed.past_meetings[0]['event_url']).to be_a(String)
           end
 
           it 'has a valid url' do
-            VCR.use_cassette 'meetup-values-past' do
-              expect(
-                MeetupFeed.past_meetings[0]['event_url']
-              ).to match(URI.regexp)
-            end
+            expect(
+              MeetupFeed.past_meetings[0]['event_url']
+            ).to match(URI.regexp)
           end
         end
       end
