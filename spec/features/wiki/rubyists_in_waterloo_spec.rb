@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/wiki/rubyists_in_waterloo', type: :feature, vcr: true do
+describe '/wiki/rubyists_in_waterloo', type: :feature do
   before do
     visit '/wiki/rubyists_in_waterloo'
   end

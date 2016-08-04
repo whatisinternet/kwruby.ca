@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'index', type: :feature, vcr: true do
+describe 'index', type: :feature do
   before do
     visit '/'
   end
